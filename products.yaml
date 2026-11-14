@@ -1,32 +1,28 @@
-# Source of truth for the OpenAI ChatGPT product feed.
-# Edit this file, run `python build.py`, then `python validate.py`.
-# Commit the updated YAML and the generated products.csv, products.parquet
-# and products.jsonl.gz.
+# Source of truth for the OpenAI ChatGPT product feeds.
+# One feed per product or catalog, each at its own stable URL:
+#   https://scalytics.github.io/agent-feed/<slug>/products.parquet
+# The root feed (products.parquet at the site root) is a copy of the
+# Lascaris feed, so any Hosted URL already registered keeps working.
 #
-# Prices and copy come only from scalytics.io. Do not invent a price.
-# A product or offer with no published price is documented below and
-# omitted from the feed.
+# Edit this file, run `python build.py`, then `python validate.py`.
+# Commit the YAML and every generated products.csv, products.parquet,
+# products.jsonl.gz and index.html.
+#
+# Do not invent a price. Do not add bundle rows.
 #
 # Checked against the live pages on 2026-11-14:
 #   https://www.scalytics.io/lascaris
-#   https://www.scalytics.io/kerovan
-#   https://www.scalytics.io/helios
 #   https://www.scalytics.io/kafshield
+#   https://www.scalytics.io/helios
+#   https://www.scalytics.io/kerovan
 #   https://www.scalytics.io/pricing
+#   https://www.scalytics.io/enablement
 #   https://www.scalytics.io/imprint
 #
-# Not in this feed (no published product price on those pages):
-#   Kerovan: free pilot from mid November 2026, then a yearly support
-#     package with no amount listed.
-#   Helios: "Talk to us". Every deployment is scoped as a project, with
-#     no amount listed.
-#   KafShield: the /kafshield page is the Lascaris Kafka backup and
-#     disaster recovery page. /pricing has no separate KafShield price.
-#     That backup capability is part of Lascaris Support and Operated.
-#
-# Other published Lascaris add-on and project prices (DR Validation,
-# Premium support retainer, architecture and migration sprints, and so
-# on) are not product rows in this feed.
+# Kerovan and Helios yearly support prices were set by Alex on 2026-11-14.
+# KafShield yearly Support and managed-on-IBM-Cloud prices were also set
+# by Alex on 2026-11-14, matching the published Support and IBM Cloud
+# managed amounts. Training and services prices are from /pricing.
 
 seller:
   brand: Scalytics
@@ -41,17 +37,16 @@ defaults:
   availability: unknown
   is_eligible_search: true
   is_eligible_checkout: false
-  product_category: Software > Kafka on S3
 
-# One feed row is built per offer price (currency). item_id is
-# {product}-{offer}-{currency}, for example LASCARIS-SUPPORT-USD.
-# Rows for the same product share group_id, with package and currency
-# in variant_dict, which is how the OpenAI product feed schema groups
-# variants of one product.
+# The root Hosted URL mirrors this product feed.
+root_feed: lascaris
+
 products:
   - id: LASCARIS
+    slug: lascaris
     url: https://www.scalytics.io/lascaris
     image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6af2d96a092b9f7d3f84ee1b_Lascaris.png
+    product_category: Software > Kafka on S3
     # Support USD is the primary Lascaris offer. Keep it first.
     offers:
       - id: SUPPORT
@@ -91,3 +86,390 @@ products:
         prices:
           USD: "32000.00 USD"
           EUR: "26750.00 EUR"
+
+  - id: KAFSHIELD
+    slug: kafshield
+    url: https://www.scalytics.io/kafshield
+    image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6a2bf9afed94be3f968dab38_kafshield.png
+    product_category: Software > Kafka backup and disaster recovery
+    # Standalone product. Do not mention Lascaris in this feed.
+    offers:
+      - id: SUPPORT
+        title: "KafShield Support, yearly"
+        description: >-
+          KafShield Support is a yearly support package from Scalytics for
+          KafShield, a Kafka backup and disaster recovery product on S3. It
+          continuously copies your topics from Confluent, Apache Kafka,
+          Redpanda or Amazon MSK into a locked, immutable backup on object
+          storage you own, under object lock. Production stays untouched.
+          Hot replication is not enough on its own: a delete, a bad write or
+          a retention change can reach a standby cluster, while this locked
+          copy sits where production credentials cannot reach it. The core is
+          open source under Apache 2.0. Retention is measured in years at
+          object storage prices, with point-in-time restore and eleven nines
+          of durability. You run it yourself, in your cloud, on-premise or
+          air-gapped. It is for platform and compliance teams that need
+          recoverable, off-vendor protection for the log, including evidence
+          for DORA and NIS2.
+        prices:
+          USD: "11750.00 USD"
+          EUR: "9750.00 EUR"
+      - id: MANAGED
+        title: "KafShield managed on IBM Cloud, yearly"
+        description: >-
+          KafShield managed on IBM Cloud is a yearly package from Scalytics.
+          Scalytics runs KafShield for you on IBM Cloud: Kafka backup and
+          disaster recovery on S3, continuously copying topics from
+          Confluent, Apache Kafka, Redpanda or Amazon MSK into a locked,
+          immutable backup under object lock. Production stays untouched.
+          The core is open source under Apache 2.0. Retention is measured in
+          years at object storage prices, with point-in-time restore and
+          eleven nines of durability. It is for platform and compliance
+          teams that need recoverable, off-vendor protection for the log,
+          including evidence for DORA and NIS2.
+        prices:
+          USD: "32000.00 USD"
+          EUR: "26750.00 EUR"
+
+  - id: KEROVAN
+    slug: kerovan
+    url: https://www.scalytics.io/kerovan
+    image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6ad8cd4264eb99e2f02fdd96_og-kerovan.png
+    product_category: Software > Tokenized fund operations
+    offers:
+      - id: SUPPORT
+        title: "Kerovan Support, yearly"
+        description: >-
+          Kerovan Support is a yearly package from Scalytics for Kerovan, a
+          reconciliation and evidence add-on for tokenized assets. It runs
+          self-served on the Kafka you already have: Lascaris, or Confluent,
+          Apache Kafka, Amazon MSK, Redpanda or Strimzi. Kerovan keeps
+          on-chain tokens and the off-chain legal register and bank ledgers
+          in step, holds what looks wrong until a person approves it, and
+          records every decision in a signed audit log. It is a read-only
+          plugin: data never leaves your environment and nothing writes
+          back. It signs NAV and price data at the source, and can connect
+          to EVM networks and Canton, the oracle you already use, and your
+          custody system. It is for heads of fund operations, reconciliation,
+          risk and compliance at fund administrators, transfer agents,
+          custodians, and banks issuing tokenized deposits or funds.
+        prices:
+          USD: "35750.00 USD"
+          EUR: "29750.00 EUR"
+      - id: ENTERPRISE
+        title: "Kerovan Enterprise, yearly"
+        description: >-
+          Kerovan Enterprise is a yearly package from Scalytics for Kerovan,
+          a reconciliation and evidence add-on for tokenized assets. It runs
+          on the Kafka you already have: Lascaris, or Confluent, Apache
+          Kafka, Amazon MSK, Redpanda or Strimzi. Kerovan keeps on-chain
+          tokens and the off-chain legal register and bank ledgers in step,
+          holds what looks wrong until a person approves it, and records
+          every decision in a signed audit log. It is a read-only plugin:
+          data never leaves your environment and nothing writes back. It
+          signs NAV and price data at the source. Enterprise covers more
+          funds and chains than Kerovan Support, with a 1-business-day
+          response and monthly signed evidence reports. It is for heads of
+          fund operations, reconciliation, risk and compliance at fund
+          administrators, transfer agents, custodians, and banks issuing
+          tokenized deposits or funds.
+        prices:
+          USD: "71750.00 USD"
+          EUR: "59750.00 EUR"
+
+  - id: HELIOS
+    slug: helios
+    url: https://www.scalytics.io/helios
+    image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6a181cf4b87ad20da84bd232_helios-og.png
+    product_category: Software > Energy management
+    offers:
+      - id: SUPPORT
+        title: "Helios Support, yearly"
+        description: >-
+          Helios Support is a yearly package from Scalytics for Helios, the
+          open energy control plane for AI compute, industry and the grid.
+          Helios is an add-on that runs self-served on one site, on the
+          Kafka you already have: Lascaris, or Confluent, Apache Kafka,
+          Amazon MSK, Redpanda or Strimzi. It places and shifts compute to
+          follow available power, so data center load can match intermittent
+          renewable supply and market pricing. The software is open source
+          under Apache 2.0. This price is for yearly support, not a licence.
+          Helios is self-hostable and can run air-gapped. It is already in
+          production with European clean energy providers, and is for AI
+          infrastructure operators and clean energy providers that need to
+          match large, flexible compute load to that supply.
+        prices:
+          USD: "23750.00 USD"
+          EUR: "19750.00 EUR"
+      - id: ENTERPRISE
+        title: "Helios Enterprise, yearly"
+        description: >-
+          Helios Enterprise is a yearly package from Scalytics for Helios,
+          the open energy control plane for AI compute, industry and the
+          grid. Helios is an add-on that runs on the Kafka you already have:
+          Lascaris, or Confluent, Apache Kafka, Amazon MSK, Redpanda or
+          Strimzi. It places and shifts compute to follow available power,
+          so data center load can match intermittent renewable supply and
+          market pricing. The software is open source under Apache 2.0. This
+          price is for yearly support, signed reports and response times, not
+          a licence. Enterprise covers up to 5 sites, with a 1-business-day
+          response and monthly signed dispatch reports. Helios is
+          self-hostable and can run air-gapped, and is already in production
+          with European clean energy providers.
+        prices:
+          USD: "59750.00 USD"
+          EUR: "49750.00 EUR"
+
+  - id: TRAINING
+    slug: training
+    url: https://www.scalytics.io/pricing
+    image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6a2bf9af1662849f1bd23eaf_enablement.png
+    product_category: Education > Kafka training
+    # Only workshops with a published amount on /pricing. Public and
+    # private Kafka cohorts on /enablement (including Confluent Platform
+    # Onboarding and Confluent Cloud Training) have no listed amount.
+    offers:
+      - id: KAFKA-DEEP-DIVE
+        title: "Kafka Deep Dive, 2 days"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          Kafka Deep Dive is a two-day training from Scalytics. It covers
+          Kafka architecture fundamentals, performance tuning and
+          optimization, and security and operations. It is for teams of up
+          to 15 participants. Book through the Scalytics pricing or contact
+          page.
+        prices:
+          USD: "5750.00 USD"
+          EUR: "4800.00 EUR"
+      - id: WAYANG-WORKSHOP
+        title: "Apache Wayang Workshop"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          The Apache Wayang Workshop is a training from Scalytics on
+          cross-platform data processing, implementation strategies and cost
+          optimization. It is for teams of up to 15 participants. Book
+          through the Scalytics pricing or contact page.
+        prices:
+          USD: "6500.00 USD"
+          EUR: "5500.00 EUR"
+      - id: ADVANCED
+        title: "Advanced training, per day"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          Advanced training is a custom-agenda training day from Scalytics
+          for your team. It can be delivered on site or remote. The listed
+          price is per day. Book through the Scalytics pricing or contact
+          page.
+        prices:
+          USD: "2500.00 USD"
+          EUR: "2100.00 EUR"
+
+  - id: SERVICES
+    slug: services
+    url: https://www.scalytics.io/pricing
+    image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6a2bb3439cfde20f4b5b27a5_scalytics-home-og-line.png
+    product_category: Services > Kafka and data platform services
+    # Published add-on, project, retainer and service offers from
+    # /pricing. Lascaris Support and Operated, and KafShield Support and
+    # managed, live in their own product feeds and are not repeated here.
+    # Range-priced offers without a single amount are omitted.
+    offers:
+      - id: DR-VALIDATION
+        title: "DR Validation add-on, yearly"
+        url: https://www.scalytics.io/pricing#sx-lascaris
+        description: >-
+          DR Validation is a yearly add-on from Scalytics. Scalytics
+          engineers run an annual recovery test, check segment integrity and
+          RTO against your SLA, and issue a signed audit report for DORA
+          Article 12 and NIS2 Annex II reviews. It can be added to a
+          support package.
+        prices:
+          USD: "5500.00 USD"
+          EUR: "4500.00 EUR"
+      - id: PREMIUM-RETAINER
+        title: "Premium support retainer, monthly"
+        url: https://www.scalytics.io/pricing#sx-lascaris
+        description: >-
+          The Premium support retainer is a monthly package from Scalytics.
+          It includes emergency on-call for production incidents, Slack and
+          email support with a response under 24 hours, monthly architecture
+          office hours (4 to 8 hours), and quarterly roadmap reviews. It can
+          be added to a support package.
+        prices:
+          USD: "15250.00 USD"
+          EUR: "12750.00 EUR"
+      - id: LASCARIS-ARCHITECTURE-SPRINT
+        title: "Lascaris architecture sprint, 3 to 5 days"
+        url: https://www.scalytics.io/pricing#sx-projects
+        description: >-
+          A fixed-price Lascaris architecture sprint from Scalytics, lasting
+          3 to 5 days. We map your topics, clients and costs, size Lascaris
+          on your Kubernetes and S3, and give you a written plan. Scope and
+          price are agreed before we start.
+        prices:
+          USD: "12500.00 USD"
+          EUR: "10500.00 EUR"
+      - id: LASCARIS-IMPLEMENTATION-SPRINT
+        title: "Lascaris implementation or migration sprint, 1 week"
+        url: https://www.scalytics.io/pricing#sx-projects
+        description: >-
+          A fixed-price one-week implementation or migration sprint from
+          Scalytics. Work can include deploying Lascaris in your cloud,
+          on-premise or air-gapped, migrating from Confluent, WarpStream,
+          Redpanda or Amazon MSK, backup setup, recovery runbooks and
+          restore tests, security implementation, and capacity planning.
+          Scope is agreed up front.
+        prices:
+          USD: "15250.00 USD"
+          EUR: "12750.00 EUR"
+      - id: PERFORMANCE-TUNING-WEEKLY
+        title: "Performance tuning engagement, weekly"
+        url: https://www.scalytics.io/pricing#sx-projects
+        description: >-
+          A weekly performance tuning engagement from Scalytics for Kafka
+          and Lascaris platforms. Fixed scope, fixed price, agreed before
+          we start. The listed price is per week.
+        prices:
+          USD: "10000.00 USD"
+          EUR: "8250.00 EUR"
+      - id: PERFORMANCE-TUNING-ONCE
+        title: "Performance tuning, one-time"
+        url: https://www.scalytics.io/pricing#sx-projects
+        description: >-
+          A one-time performance tuning engagement from Scalytics for Kafka
+          and Lascaris platforms. Fixed scope and fixed price, agreed before
+          we start.
+        prices:
+          USD: "14750.00 USD"
+          EUR: "12350.00 EUR"
+      - id: AI-AGENTS-ARCHITECTURE-SPRINT
+        title: "AI agents on Lascaris architecture sprint, 1 week"
+        url: https://www.scalytics.io/pricing#sx-projects
+        description: >-
+          A one-week architecture sprint from Scalytics for production
+          multi-agent systems on Kafka, with policy checks and an audit
+          trail. It covers multi-agent architecture design, Kafka-first
+          communication patterns, framework-agnostic agent abstractions,
+          and production readiness reviews.
+        prices:
+          USD: "22000.00 USD"
+          EUR: "18500.00 EUR"
+      - id: AI-AGENTS-IMPLEMENTATION-SPRINT
+        title: "AI agents on Lascaris implementation sprint, weekly"
+        url: https://www.scalytics.io/pricing#sx-projects
+        description: >-
+          A weekly implementation sprint from Scalytics for production
+          multi-agent systems on Kafka, with policy checks and an audit
+          trail. Typical engagements run 2 to 4 weeks. The listed price is
+          per week, with scope agreed up front.
+        prices:
+          USD: "15250.00 USD"
+          EUR: "12750.00 EUR"
+      - id: AI-AGENTS-OPTIMIZATION
+        title: "AI agents on Lascaris production optimization, weekly"
+        url: https://www.scalytics.io/pricing#sx-projects
+        description: >-
+          Ongoing production optimization from Scalytics for multi-agent
+          systems on Kafka, including performance optimization and
+          monitoring. The listed price is per week.
+        prices:
+          USD: "10250.00 USD"
+          EUR: "8500.00 EUR"
+      - id: FORWARD-DEPLOYED-ENGINEER
+        title: "Forward-deployed engineer, weekly"
+        url: https://www.scalytics.io/pricing#sx-partnership
+        description: >-
+          A senior Scalytics engineer working inside your team, in your
+          repos, your tickets and your stand-ups. Booked by the week, and
+          you can stop when the work is done. The listed price is per week.
+        prices:
+          USD: "15250.00 USD"
+          EUR: "12750.00 EUR"
+      - id: STANDARD-RETAINER
+        title: "Standard retainer, monthly"
+        url: https://www.scalytics.io/pricing#sx-partnership
+        description: >-
+          A monthly retainer from Scalytics with monthly architecture office
+          hours (4 to 8 hours), Slack and email support with a response under
+          24 hours, production incident support, architecture decision
+          records, and quarterly roadmap reviews.
+        prices:
+          USD: "8250.00 USD"
+          EUR: "6850.00 EUR"
+      - id: CONSULTING-PACKAGE
+        title: "Consulting package"
+        url: https://www.scalytics.io/pricing#sx-partnership
+        description: >-
+          A consulting package from Scalytics that includes infrastructure
+          assessment and planning, two sprints in sync with yours, two days
+          of knowledge transfer and training, and proactive solution ideas.
+        prices:
+          USD: "19500.00 USD"
+          EUR: "16350.00 EUR"
+      - id: DESIGN-WORKSHOP
+        title: "Design workshop, weekly"
+        url: https://www.scalytics.io/pricing#sx-partnership
+        description: >-
+          A weekly design workshop from Scalytics that takes a whiteboard
+          session to a written design with your architects. It can be run
+          on site or remote. The listed price is per week.
+        prices:
+          USD: "7000.00 USD"
+          EUR: "5800.00 EUR"
+      - id: WAYANG-ARCHITECTURE-SPRINT
+        title: "Apache Wayang architecture sprint, 3 to 5 days"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          A 3 to 5 day Apache Wayang architecture sprint from Scalytics, the
+          team behind Apache Wayang. It covers Wayang architecture design
+          and review, and integration with Lascaris, Spark, Flink and JDBC.
+          Our CTO is a member of the Apache Wayang PMC and a committer.
+        prices:
+          USD: "12500.00 USD"
+          EUR: "10500.00 EUR"
+      - id: WAYANG-IMPLEMENTATION-SPRINT
+        title: "Apache Wayang implementation sprint, 1 week"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          A one-week Apache Wayang implementation sprint from Scalytics, the
+          team behind Apache Wayang. It can include pipeline migration,
+          cross-platform pipeline optimisation, and custom operator and
+          platform extension. Our CTO is a member of the Apache Wayang PMC
+          and a committer.
+        prices:
+          USD: "17500.00 USD"
+          EUR: "14500.00 EUR"
+      - id: WAYANG-ENTERPRISE-RETAINER
+        title: "Apache Wayang enterprise retainer, monthly"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          A monthly Apache Wayang enterprise retainer from Scalytics for
+          production incident support and an SLA. It is for data platform
+          teams running Apache Wayang in production. Our CTO is a member of
+          the Apache Wayang PMC and a committer.
+        prices:
+          USD: "10500.00 USD"
+          EUR: "8750.00 EUR"
+      - id: SAP-ERP-SCADA-ARCHITECTURE-SPRINT
+        title: "SAP, ERP and SCADA architecture sprint, 1 week"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          A one-week architecture sprint from Scalytics for real-time data
+          from enterprise systems, including SAP IDoc extraction and object
+          events, ERP integration, SCADA data from smart grid and industrial
+          systems, event-driven architecture design, and custom Kafka
+          Connect connectors.
+        prices:
+          USD: "15250.00 USD"
+          EUR: "12750.00 EUR"
+      - id: SAP-ERP-SCADA-DISCOVERY-POC
+        title: "SAP, ERP and SCADA discovery and proof of concept, weekly"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          A weekly discovery and proof of concept from Scalytics for
+          real-time data from SAP, ERP and SCADA systems, including event
+          driven architecture and custom Kafka Connect connectors. The
+          listed price is per week.
+        prices:
+          USD: "19750.00 USD"
+          EUR: "16500.00 EUR"

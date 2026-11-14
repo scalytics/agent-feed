@@ -29,16 +29,20 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build feed
+      - name: Build feeds
         run: python build.py
 
-      - name: Validate feed
-        run: python validate.py products.csv products.parquet products.jsonl.gz
+      - name: Validate feeds
+        run: python validate.py
 
       - name: Stage Pages site
         run: |
           mkdir -p _site
           cp products.csv products.parquet products.jsonl.gz index.html _site/
+          for dir in lascaris kafshield kerovan helios training services; do
+            mkdir -p "_site/$dir"
+            cp "$dir/products.csv" "$dir/products.parquet" "$dir/products.jsonl.gz" "_site/$dir/"
+          done
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

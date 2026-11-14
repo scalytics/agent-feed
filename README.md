@@ -1,46 +1,67 @@
-# Scalytics product feed
+# Scalytics product feeds
 
-This repository publishes a product feed for the OpenAI ChatGPT Business
-Hub Hosted URL option. The live files are:
+This repository publishes product feeds for the OpenAI ChatGPT Business
+Hub Hosted URL option. There is one feed per product or catalog.
 
-- https://scalytics.github.io/agent-feed/products.parquet (preferred)
-- https://scalytics.github.io/agent-feed/products.csv
-- https://scalytics.github.io/agent-feed/products.jsonl.gz
+Lascaris (also published at the site root, so an already registered URL
+keeps working):
 
-Paste one of those URLs into the Business Hub when you upload products.
-Parquet is the format OpenAI prefers.
+- https://scalytics.github.io/agent-feed/products.parquet
+- https://scalytics.github.io/agent-feed/lascaris/products.parquet
 
-## What is in the feed
+The other feeds:
 
-Each published offer has one row per currency (EUR and USD). The first
-row is Lascaris Support in USD, which is the main Lascaris price.
+- https://scalytics.github.io/agent-feed/kafshield/products.parquet
+- https://scalytics.github.io/agent-feed/kerovan/products.parquet
+- https://scalytics.github.io/agent-feed/helios/products.parquet
+- https://scalytics.github.io/agent-feed/training/products.parquet
+- https://scalytics.github.io/agent-feed/services/products.parquet
 
-Only facts and prices from scalytics.io are used. A product with no
-published price is left out:
+Each folder also has `products.csv` and `products.jsonl.gz`. Paste a
+parquet URL into the Business Hub. Parquet is the format OpenAI prefers.
 
-- Kerovan has a free pilot from mid November 2026, then a yearly support
-  package with no amount listed.
-- Helios is priced as a scoped project. The pricing page says "Talk to
-  us" and lists no amount.
-- The KafShield page at /kafshield is the Lascaris Kafka backup page.
-  Pricing has no separate KafShield amount. That backup capability is
-  part of Lascaris Support and Operated.
+## What is in each feed
+
+Each published offer has one row per currency (EUR and USD). There are
+no bundle rows.
+
+- Lascaris: Support and Operated on IBM Cloud. Support USD is first.
+- KafShield: Support and managed on IBM Cloud, as a standalone product.
+- Kerovan: Support (self-run on your Kafka) and Enterprise. Kerovan is
+  an add-on for Lascaris or for Confluent, Apache Kafka, Amazon MSK,
+  Redpanda or Strimzi.
+- Helios: Support (self-run, one site) and Enterprise (up to 5 sites).
+  Helios is an add-on for Lascaris or for those same Kafka installations.
+  The software is Apache 2.0; the price is for support, signed reports
+  and response times, not a licence.
+- Training: priced workshops from the Scalytics pricing page (Kafka
+  Deep Dive, Apache Wayang Workshop, and Advanced training).
+- Services: published add-ons, sprints, retainers and other service
+  offers from the pricing page.
 
 Seller name is Scalytics, Inc. Store country is US.
+
+The Confluent Platform Onboarding and Confluent Cloud training cohorts
+on https://www.scalytics.io/enablement have no published amount (the
+page says per-seat for public cohorts and a flat fee for private
+cohorts, and asks you to talk to the enablement team for a quote).
+Two SAP, ERP and SCADA offers on the pricing page are listed only as
+price ranges, so they are not in the services feed:
+production implementation, and custom connector development.
 
 ## How to update
 
 1. Edit `products.yaml`. This file is the source of truth.
 2. Install dependencies once: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`
 3. Run `.venv/bin/python build.py`
-4. Run `.venv/bin/python validate.py products.csv products.parquet products.jsonl.gz`
-5. Commit the YAML and the generated `products.csv`, `products.parquet`,
-   `products.jsonl.gz` and `index.html`.
+4. Run `.venv/bin/python validate.py`
+5. Commit the YAML, the generated feed files in each product folder,
+   the root `products.csv`, `products.parquet` and `products.jsonl.gz`,
+   and `index.html`.
 6. Push to `main`. GitHub Actions builds, validates and publishes the
    files to GitHub Pages at the URLs above.
 
-Do not invent prices, ratings, GTINs or stock counts. If an offer has no
-real price, leave it out of `products.yaml` and mention it in this
-README. Write plain English, do not use em dashes, say Kafka rather than
+Do not invent prices, ratings, GTINs or stock counts. Do not add bundle
+rows. Write plain English, do not use em dashes, say Kafka rather than
 "streaming" on its own, and never write "inside your perimeter". If you
 mention ISO 27001, say it is in progress.
