@@ -225,9 +225,10 @@ products:
     url: https://www.scalytics.io/pricing
     image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6a2bf9af1662849f1bd23eaf_enablement.png
     product_category: Education > Kafka training
-    # Only workshops with a published amount on /pricing. Public and
-    # private Kafka cohorts on /enablement (including Confluent Platform
-    # Onboarding and Confluent Cloud Training) have no listed amount.
+    # Workshops with a published amount on /pricing, plus the Confluent
+    # Platform Onboarding and Confluent Cloud Training cohorts from
+    # /enablement. Cohort prices (public per seat, private flat fee) were
+    # set by Scalytics sales on 2026-11-14.
     offers:
       - id: KAFKA-DEEP-DIVE
         title: "Kafka Deep Dive, 2 days"
@@ -263,6 +264,76 @@ products:
         prices:
           USD: "2500.00 USD"
           EUR: "2100.00 EUR"
+      - id: CPOB-PUBLIC-SEAT
+        title: "Confluent Platform Onboarding cohort, public, per seat"
+        url: https://www.scalytics.io/enablement#se-programs
+        description: >-
+          Confluent Platform Onboarding (CFLT-CPOB-V1) is a live online Kafka
+          training cohort from Scalytics for teams running Confluent Platform
+          on premises or on Kubernetes. It runs over three weeks with 15 live
+          sessions of 90 minutes, hands-on labs and recordings. Week 1 is a
+          shared foundation for all roles: Kafka architecture, Schema
+          Registry, Shift Left and a Flink preview. Week 2 runs Developer and
+          Architect tracks: producer and consumer tuning, Kafka Streams,
+          scalability, high availability, Event Sourcing and CQRS. Week 3 is
+          the Operator track: CFK on Kubernetes, monitoring, scaling,
+          diagnostics and disaster recovery. The trainer is Dr. Mirko Kämpf, a
+          former Confluent solution architect. Scalytics is a Confluent
+          partner. The listed price is per participant in a public cohort.
+        prices:
+          USD: "2350.00 USD"
+          EUR: "1950.00 EUR"
+      - id: CPOB-PRIVATE
+        title: "Confluent Platform Onboarding cohort, private, up to 12 participants"
+        url: https://www.scalytics.io/enablement#se-programs
+        description: >-
+          A private Confluent Platform Onboarding cohort from Scalytics for one
+          team of up to 12 engineers across the architect, developer and
+          operator roles. It follows the CFLT-CPOB-V1 curriculum: three weeks,
+          15 live sessions of 90 minutes, hands-on labs and recordings, with
+          labs and case material adapted to the Confluent Platform setup your
+          team runs and paced to your calendar. The trainer is Dr. Mirko
+          Kämpf, a former Confluent solution architect. Scalytics is a
+          Confluent partner. The listed price is a flat fee for the whole
+          private cohort.
+        prices:
+          USD: "25750.00 USD"
+          EUR: "21500.00 EUR"
+      - id: CCOB-PUBLIC-SEAT
+        title: "Confluent Cloud Training cohort, public, per seat"
+        url: https://www.scalytics.io/enablement#se-programs
+        description: >-
+          Confluent Cloud Training (CFLT-CCOB-V1) is a live online Kafka
+          training cohort from Scalytics for teams running Confluent Cloud. It
+          has 15 live sessions of 90 minutes over three to eight weeks, with
+          hands-on labs and recordings. Cloud-specific labs cover RBAC,
+          networking, governance and managed Flink. Week 1 is a shared
+          foundation for all roles, week 2 runs Developer and Architect tracks
+          (client tuning, Kafka Streams, Flink SQL, cloud scaling and
+          security), and week 3 is the Operator track (cluster lifecycle,
+          observability, cost controls, diagnostics and disaster recovery).
+          The trainer is Dr. Mirko Kämpf, a former Confluent solution
+          architect. Scalytics is a Confluent partner. The listed price is per
+          participant in a public cohort.
+        prices:
+          USD: "2350.00 USD"
+          EUR: "1950.00 EUR"
+      - id: CCOB-PRIVATE
+        title: "Confluent Cloud Training cohort, private, up to 12 participants"
+        url: https://www.scalytics.io/enablement#se-programs
+        description: >-
+          A private Confluent Cloud Training cohort from Scalytics for one team
+          of up to 12 engineers across the architect, developer and operator
+          roles. It follows the CFLT-CCOB-V1 curriculum: 15 live sessions of
+          90 minutes over three to eight weeks, hands-on labs and recordings,
+          with labs adapted to your Confluent Cloud environment, including
+          RBAC, networking, governance and managed Flink. The trainer is Dr.
+          Mirko Kämpf, a former Confluent solution architect. Scalytics is a
+          Confluent partner. The listed price is a flat fee for the whole
+          private cohort.
+        prices:
+          USD: "25750.00 USD"
+          EUR: "21500.00 EUR"
 
   - id: SERVICES
     slug: services
@@ -272,7 +343,9 @@ products:
     # Published add-on, project, retainer and service offers from
     # /pricing. Lascaris Support and Operated, and KafShield Support and
     # managed, live in their own product feeds and are not repeated here.
-    # Range-priced offers without a single amount are omitted.
+    # Range-priced offers are listed at the published low end, with
+    # "from" in the title and description (set by Scalytics sales,
+    # 2026-11-14).
     offers:
       - id: DR-VALIDATION
         title: "DR Validation add-on, yearly"
@@ -473,3 +546,29 @@ products:
         prices:
           USD: "19750.00 USD"
           EUR: "16500.00 EUR"
+      - id: SAP-ERP-SCADA-IMPLEMENTATION
+        title: "SAP, ERP and SCADA production implementation, priced from"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          A fixed-scope production implementation from Scalytics for
+          real-time data from SAP, ERP and SCADA systems on Kafka, including
+          SAP IDoc extraction and object events, ERP integration, SCADA data
+          from smart grid and industrial systems, and event-driven
+          architecture. Prices start from the listed amount; the published
+          range is EUR 18,000 to EUR 35,000 (USD 21,500 to USD 42,000), and
+          the final fixed price is agreed before work starts.
+        prices:
+          USD: "21500.00 USD"
+          EUR: "18000.00 EUR"
+      - id: CUSTOM-CONNECTOR-DEVELOPMENT
+        title: "Custom Kafka Connect connector development, priced from"
+        url: https://www.scalytics.io/pricing#sx-services
+        description: >-
+          Custom Kafka Connect connector development from Scalytics for SAP,
+          ERP, SCADA and other enterprise systems that need a connector to
+          Kafka. Prices start from the listed amount; the published range is
+          EUR 22,500 to EUR 40,000 (USD 27,000 to USD 48,000), and the final
+          fixed price is agreed before work starts.
+        prices:
+          USD: "27000.00 USD"
+          EUR: "22500.00 EUR"

@@ -35,19 +35,21 @@ no bundle rows.
   The software is Apache 2.0; the price is for support, signed reports
   and response times, not a licence.
 - Training: priced workshops from the Scalytics pricing page (Kafka
-  Deep Dive, Apache Wayang Workshop, and Advanced training).
+  Deep Dive, Apache Wayang Workshop, and Advanced training), plus the
+  Confluent Platform Onboarding and Confluent Cloud Training cohorts.
 - Services: published add-ons, sprints, retainers and other service
   offers from the pricing page.
 
 Seller name is Scalytics, Inc. Store country is US.
 
-The Confluent Platform Onboarding and Confluent Cloud training cohorts
-on https://www.scalytics.io/enablement have no published amount (the
-page says per-seat for public cohorts and a flat fee for private
-cohorts, and asks you to talk to the enablement team for a quote).
-Two SAP, ERP and SCADA offers on the pricing page are listed only as
-price ranges, so they are not in the services feed:
-production implementation, and custom connector development.
+The Confluent Platform Onboarding and Confluent Cloud Training cohorts
+from https://www.scalytics.io/enablement are in the training feed, each
+as a public per-seat price and a private flat fee for up to 12
+participants. The two range-priced SAP, ERP and SCADA offers
+(production implementation, and custom connector development) are in
+the services feed at the published low end, with "from" in the title
+and description. These prices were set by Scalytics sales on
+2026-11-14.
 
 ## How to update
 
