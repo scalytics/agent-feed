@@ -1,0 +1,93 @@
+# Source of truth for the OpenAI ChatGPT product feed.
+# Edit this file, run `python build.py`, then `python validate.py`.
+# Commit the updated YAML and the generated products.csv, products.parquet
+# and products.jsonl.gz.
+#
+# Prices and copy come only from scalytics.io. Do not invent a price.
+# A product or offer with no published price is documented below and
+# omitted from the feed.
+#
+# Checked against the live pages on 2026-11-14:
+#   https://www.scalytics.io/lascaris
+#   https://www.scalytics.io/kerovan
+#   https://www.scalytics.io/helios
+#   https://www.scalytics.io/kafshield
+#   https://www.scalytics.io/pricing
+#   https://www.scalytics.io/imprint
+#
+# Not in this feed (no published product price on those pages):
+#   Kerovan: free pilot from mid November 2026, then a yearly support
+#     package with no amount listed.
+#   Helios: "Talk to us". Every deployment is scoped as a project, with
+#     no amount listed.
+#   KafShield: the /kafshield page is the Lascaris Kafka backup and
+#     disaster recovery page. /pricing has no separate KafShield price.
+#     That backup capability is part of Lascaris Support and Operated.
+#
+# Other published Lascaris add-on and project prices (DR Validation,
+# Premium support retainer, architecture and migration sprints, and so
+# on) are not product rows in this feed.
+
+seller:
+  brand: Scalytics
+  seller_name: "Scalytics, Inc"
+  seller_url: https://www.scalytics.io
+  seller_privacy_policy: https://www.scalytics.io/privacy
+  seller_tos: https://www.scalytics.io/terms-of-service
+  store_country: US
+  target_countries: ["US"]
+
+defaults:
+  availability: unknown
+  is_eligible_search: true
+  is_eligible_checkout: false
+  product_category: Software > Kafka on S3
+
+# One feed row is built per offer price (currency). item_id is
+# {product}-{offer}-{currency}, for example LASCARIS-SUPPORT-USD.
+# Rows for the same product share group_id, with package and currency
+# in variant_dict, which is how the OpenAI product feed schema groups
+# variants of one product.
+products:
+  - id: LASCARIS
+    url: https://www.scalytics.io/lascaris
+    image_url: https://cdn.prod.website-files.com/61fd00481f4b997da0ec34e3/6af2d96a092b9f7d3f84ee1b_Lascaris.png
+    # Support USD is the primary Lascaris offer. Keep it first.
+    offers:
+      - id: SUPPORT
+        title: "Lascaris Support, yearly"
+        description: >-
+          Lascaris Support is a yearly support package from Scalytics for
+          Lascaris, the open Streamhouse that runs Kafka on object storage
+          you already own. It covers the Kafka on S3 platform plus an
+          immutable backup for Confluent, Apache Kafka, Redpanda and Amazon
+          MSK, in your environment. Brokers are stateless and your bucket
+          holds the data, so there are no broker disks to buy and no
+          partitions to rebalance. Agents, policy checks and a signed audit
+          trail are built in. You can run it in your cloud or data center,
+          including on-premise and air-gapped sites. The package includes a
+          remote onboarding configuration review (2 hours), a DORA Article 12
+          and NIS2 Annex II evidence pack, a quarterly DR test runbook,
+          updates and fixes for the supported release, and email support with
+          a 2-business-day response. The software itself has no licence fee.
+        prices:
+          USD: "11750.00 USD"
+          EUR: "9750.00 EUR"
+      - id: OPERATED
+        title: "Lascaris Operated on IBM Cloud, yearly"
+        description: >-
+          Lascaris Operated on IBM Cloud is a yearly package from Scalytics.
+          It includes everything in Lascaris Support, and Scalytics operates
+          Lascaris for you on IBM Cloud: Kafka on your own S3 plus an
+          immutable backup for Confluent, Apache Kafka, Redpanda and Amazon
+          MSK. Brokers are stateless and your bucket holds the data. Agents,
+          policy checks and a signed audit trail are built in. The package
+          includes a 1-business-day response, monthly compliance reports
+          that are generated and signed, 2 TB of storage, and multi-cluster
+          configuration support. The software itself has no licence fee.
+        extra_storage:
+          USD: "590.00 USD"
+          EUR: "490.00 EUR"
+        prices:
+          USD: "32000.00 USD"
+          EUR: "26750.00 EUR"
