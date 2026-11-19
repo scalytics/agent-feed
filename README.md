@@ -14,6 +14,7 @@ The other feeds:
 - https://scalytics.github.io/agent-feed/kafshield/products.parquet
 - https://scalytics.github.io/agent-feed/kerovan/products.parquet
 - https://scalytics.github.io/agent-feed/helios/products.parquet
+- https://scalytics.github.io/agent-feed/valgard/products.parquet
 - https://scalytics.github.io/agent-feed/training/products.parquet
 - https://scalytics.github.io/agent-feed/services/products.parquet
 
@@ -34,6 +35,10 @@ no bundle rows.
   Helios is an add-on for Lascaris or for those same Kafka installations.
   The software is Apache 2.0; the price is for support, signed reports
   and response times, not a licence.
+- Valgard: one design-partner offer, with no published price. Valgard is
+  a proactive cyber defense add-on, in alpha and internal testing, and
+  not generally available. The feed marks it as pre_order. Design
+  partners can register interest at https://www.scalytics.io/contact.
 - Training: priced workshops from the Scalytics pricing page (Kafka
   Deep Dive, Apache Wayang Workshop, and Advanced training), plus the
   Confluent Platform Onboarding and Confluent Cloud Training cohorts.

@@ -15,6 +15,7 @@
 #   https://www.scalytics.io/kafshield
 #   https://www.scalytics.io/helios
 #   https://www.scalytics.io/kerovan
+#   https://www.scalytics.io/valgard  (page in development as of 2026-11-19)
 #   https://www.scalytics.io/pricing
 #   https://www.scalytics.io/enablement
 #   https://www.scalytics.io/imprint
@@ -219,6 +220,36 @@ products:
         prices:
           USD: "59750.00 USD"
           EUR: "49750.00 EUR"
+
+  - id: VALGARD
+    slug: valgard
+    url: https://www.scalytics.io/valgard
+    # Product page is not live yet, so the OG image is hosted in this repo
+    # and published with the feed on GitHub Pages.
+    image_url: https://scalytics.github.io/agent-feed/valgard/og-valgard.png
+    product_category: Software > Proactive cyber defense
+    # In alpha, internal testing. No published price. OpenAI availability
+    # value pre_order is the closest match to "not generally available,
+    # design partners can register interest".
+    availability: pre_order
+    offers:
+      - id: DESIGN-PARTNER
+        title: "Valgard, your own cyber defense team"
+        url: https://www.scalytics.io/contact
+        description: >-
+          Valgard is a proactive cyber defense add-on from Scalytics: your
+          own cyber defense team. Find it, block it, prove it. It runs on
+          hardware you own, as an add-on to Lascaris Streamhouse or the
+          Kafka you already run: Confluent, Apache Kafka, Redpanda or
+          Amazon MSK. It finds known exploited flaws, using the CISA Known
+          Exploited Vulnerabilities catalog (KEV) and FIRST's Exploit
+          Prediction Scoring System (EPSS), on your own assets inside a
+          scope you sign. Time-boxed blocks on F5, Palo Alto and OPNsense
+          lift themselves on a timer. Bigger changes wait for your
+          approval. A rescan and signed records are evidence for NIS2 and
+          DORA. Valgard is in alpha, in internal testing, and is not
+          generally available. It has no published price. Design partners
+          can register interest at https://www.scalytics.io/contact.
 
   - id: TRAINING
     slug: training

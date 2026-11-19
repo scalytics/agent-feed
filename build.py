@@ -129,7 +129,9 @@ def build_rows(product: dict, seller: dict, defaults: dict) -> list[dict]:
                 "brand": seller["brand"],
                 "seller_name": seller["seller_name"],
                 "image_url": product["image_url"],
-                "availability": defaults.get("availability", "unknown"),
+                "availability": offer.get("availability")
+                or product.get("availability")
+                or defaults.get("availability", "unknown"),
                 "target_countries": list(seller["target_countries"]),
                 "store_country": seller["store_country"],
                 "product_category": product.get("product_category")
@@ -239,6 +241,7 @@ def write_index(products_meta: list[dict], root_slug: str, path: Path) -> None:
         "HELIOS": "Helios",
         "TRAINING": "Training",
         "SERVICES": "Services",
+        "VALGARD": "Valgard",
     }
     # rebuild headings properly
     blocks = []

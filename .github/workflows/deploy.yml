@@ -39,9 +39,13 @@ jobs:
         run: |
           mkdir -p _site
           cp products.csv products.parquet products.jsonl.gz index.html _site/
-          for dir in lascaris kafshield kerovan helios training services; do
-            mkdir -p "_site/$dir"
-            cp "$dir/products.csv" "$dir/products.parquet" "$dir/products.jsonl.gz" "_site/$dir/"
+          for dir in */; do
+            slug="${dir%/}"
+            if [ -f "$slug/products.parquet" ]; then
+              mkdir -p "_site/$slug"
+              cp "$slug/products.csv" "$slug/products.parquet" "$slug/products.jsonl.gz" "_site/$slug/"
+              find "$slug" -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.webp' -o -name '*.svg' \) -exec cp {} "_site/$slug/" \;
+            fi
           done
 
       - name: Configure Pages
