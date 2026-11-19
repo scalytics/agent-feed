@@ -24,6 +24,8 @@
 # KafShield yearly Support and managed-on-IBM-Cloud prices were also set
 # by Alex on 2026-11-14, matching the published Support and IBM Cloud
 # managed amounts. Training and services prices are from /pricing.
+# Valgard Small and Pro yearly EUR prices were set by Alex on 2026-11-14
+# (research page section 10.0). No USD price was set.
 
 seller:
   brand: Scalytics
@@ -225,31 +227,65 @@ products:
     slug: valgard
     url: https://www.scalytics.io/valgard
     # Product page is not live yet, so the OG image is hosted in this repo
-    # and published with the feed on GitHub Pages.
+    # and published with the feed on GitHub Pages. Offer URLs use /contact
+    # because the product page still returns 404, and OpenAI requires a
+    # publicly accessible product URL.
     image_url: https://scalytics.github.io/agent-feed/valgard/og-valgard.png
     product_category: Software > Proactive cyber defense
-    # In alpha, internal testing. No published price. OpenAI availability
-    # value pre_order is the closest match to "not generally available,
-    # design partners can register interest".
-    availability: pre_order
+    # Yearly EUR prices decided by Alex on 14 Nov 2026 (research page
+    # section 10.0). No USD price was set; do not invent one. Custom
+    # quotes above 2,000 assets have no list price, so they are not a row.
+    # Availability follows the feed default (unknown), the same value as
+    # the already registered product feeds.
     offers:
-      - id: DESIGN-PARTNER
-        title: "Valgard, your own cyber defense team"
+      - id: SMALL
+        title: "Valgard Small, yearly"
         url: https://www.scalytics.io/contact
         description: >-
-          Valgard is a proactive cyber defense add-on from Scalytics: your
-          own cyber defense team. Find it, block it, prove it. It runs on
-          hardware you own, as an add-on to Lascaris Streamhouse or the
-          Kafka you already run: Confluent, Apache Kafka, Redpanda or
-          Amazon MSK. It finds known exploited flaws, using the CISA Known
-          Exploited Vulnerabilities catalog (KEV) and FIRST's Exploit
-          Prediction Scoring System (EPSS), on your own assets inside a
-          scope you sign. Time-boxed blocks on F5, Palo Alto and OPNsense
-          lift themselves on a timer. Bigger changes wait for your
-          approval. A rescan and signed records are evidence for NIS2 and
-          DORA. Valgard is in alpha, in internal testing, and is not
-          generally available. It has no published price. Design partners
-          can register interest at https://www.scalytics.io/contact.
+          Valgard Small is a yearly package from Scalytics for Valgard, a
+          proactive cyber defense add-on: your own cyber defense team.
+          Find it, block it, prove it. It covers up to 250 assets in
+          scope, with the full product and all features. An asset is an
+          IP, host, domain or network device. It runs on hardware you
+          own, as an add-on to Lascaris Streamhouse or the Kafka you
+          already run: Confluent, Apache Kafka, Redpanda or Amazon MSK.
+          It finds known exploited flaws, using the CISA Known Exploited
+          Vulnerabilities catalog (KEV) and FIRST's Exploit Prediction
+          Scoring System (EPSS), on your own assets inside a scope you
+          sign. Time-boxed blocks on F5, Palo Alto and OPNsense lift
+          themselves on a timer. Bigger changes wait for your approval.
+          A rescan and signed records are evidence for NIS2 and DORA.
+          The price covers software, detection content, and CVE and KEV
+          feed updates. The customer provides the hardware. Valgard is
+          in alpha, in internal testing. Design partners can register
+          interest at https://www.scalytics.io/contact. Scopes above
+          2,000 assets are quoted separately.
+        prices:
+          EUR: "14750.00 EUR"
+      - id: PRO
+        title: "Valgard Pro, yearly"
+        url: https://www.scalytics.io/contact
+        description: >-
+          Valgard Pro is a yearly package from Scalytics for Valgard, a
+          proactive cyber defense add-on: your own cyber defense team.
+          Find it, block it, prove it. It covers up to 2,000 assets in
+          scope, with the full product and all features. An asset is an
+          IP, host, domain or network device. It runs on hardware you
+          own, as an add-on to Lascaris Streamhouse or the Kafka you
+          already run: Confluent, Apache Kafka, Redpanda or Amazon MSK.
+          It finds known exploited flaws, using the CISA Known Exploited
+          Vulnerabilities catalog (KEV) and FIRST's Exploit Prediction
+          Scoring System (EPSS), on your own assets inside a scope you
+          sign. Time-boxed blocks on F5, Palo Alto and OPNsense lift
+          themselves on a timer. Bigger changes wait for your approval.
+          A rescan and signed records are evidence for NIS2 and DORA.
+          The price covers software, detection content, and CVE and KEV
+          feed updates. The customer provides the hardware. Valgard is
+          in alpha, in internal testing. Design partners can register
+          interest at https://www.scalytics.io/contact. Scopes above
+          2,000 assets are quoted separately.
+        prices:
+          EUR: "34750.00 EUR"
 
   - id: TRAINING
     slug: training

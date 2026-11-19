@@ -25,6 +25,8 @@ PACKAGE_LABELS = {
     "OPERATED": "Operated on IBM Cloud",
     "MANAGED": "Managed on IBM Cloud",
     "ENTERPRISE": "Enterprise",
+    "SMALL": "Small",
+    "PRO": "Pro",
 }
 
 FEED_FIELDS = [

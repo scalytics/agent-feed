@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Validate OpenAI ChatGPT product feeds built from products.yaml."""
+"""Validate OpenAI ChatGPT product feeds built from products.yaml.
+
+Discovery required fields, enums and money format follow the OpenAI
+product feed schema:
+https://developers.openai.com/commerce/specs/file-upload/products
+"""
 
 from __future__ import annotations
 
@@ -15,6 +20,12 @@ from urllib.parse import urlparse
 import yaml
 
 ROOT = Path(__file__).resolve().parent
+# OpenAI discovery requires the nine Basic product data fields plus
+# target_countries and store_country (Geo tagging). price is required
+# and must be a positive amount; 0 is not valid. availability must be
+# one of the enum values below. availability_date is not required for
+# pre_order in the current spec. See:
+# https://developers.openai.com/commerce/specs/file-upload/products
 REQUIRED_FIELDS = [
     "item_id",
     "title",
@@ -298,7 +309,15 @@ def feed_files(directory: Path) -> list[Path]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("files", nargs="*", type=Path)
-    parser.add_argument("--allow-missing-price", action="store_true")
+    parser.add_argument(
+        "--allow-missing-price",
+        action="store_true",
+        help=(
+            "Skip the required price check when validating individual files. "
+            "OpenAI rejects rows without a positive price, so do not use this "
+            "for a feed you will register."
+        ),
+    )
     args = parser.parse_args()
 
     errors = []
@@ -313,17 +332,19 @@ def main() -> int:
     else:
         source = yaml.safe_load((ROOT / "products.yaml").read_text(encoding="utf-8"))
         root_slug = source.get("root_feed") or "lascaris"
-        incomplete = []
         for product in source["products"]:
             slug = product["slug"]
             offers = product.get("offers") or []
-            complete = bool(offers) and all(offer.get("prices") for offer in offers)
-            if not complete:
-                incomplete.append(slug)
+            if not (offers and all(offer.get("prices") for offer in offers)):
+                errors.append(
+                    f"{slug}: OpenAI requires a positive price on every row; "
+                    "add prices in products.yaml. Spec: "
+                    "https://developers.openai.com/commerce/specs/file-upload/products"
+                )
             errors.extend(
                 validate_files(
                     feed_files(ROOT / slug),
-                    require_price=complete,
+                    require_price=True,
                     ban_lascaris=(product["id"] == "KAFSHIELD"),
                 )
             )
@@ -343,8 +364,6 @@ def main() -> int:
                 ban_lascaris=False,
             )
         )
-        if incomplete:
-            print("Incomplete feeds (not ready to register): " + ", ".join(incomplete))
 
     if errors:
         print("VALIDATION FAILED")

@@ -35,9 +35,10 @@ no bundle rows.
   Helios is an add-on for Lascaris or for those same Kafka installations.
   The software is Apache 2.0; the price is for support, signed reports
   and response times, not a licence.
-- Valgard: one design-partner offer, with no published price. Valgard is
-  a proactive cyber defense add-on, in alpha and internal testing, and
-  not generally available. The feed marks it as pre_order. Design
+- Valgard: Small (up to 250 assets in scope) and Pro (up to 2,000
+  assets), yearly, in EUR only. Prices were set by Alex on 2026-11-14.
+  There is no USD price, so this feed has no USD rows. Custom quotes
+  above 2,000 assets are not a row. Valgard is in alpha. Design
   partners can register interest at https://www.scalytics.io/contact.
 - Training: priced workshops from the Scalytics pricing page (Kafka
   Deep Dive, Apache Wayang Workshop, and Advanced training), plus the
